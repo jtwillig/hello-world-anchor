@@ -12,15 +12,19 @@ pub mod hello_world_anchor {
         Ok(())
     }
 
-    pub fn increment(ctx: Context<Increment>) -> Result<()> {
+    pub fn increment(ctx: Context<Increment>, data: Option<u64>) -> Result<()> {
         let my_account = &mut ctx.accounts.my_account;
-        my_account.data += 1;
+        my_account.data += data.unwrap_or(1);
         Ok(())
     }
 
-    pub fn decrement(ctx: Context<Decrement>) -> Result<()> {
+    pub fn decrement(ctx: Context<Decrement>, data: Option<u64>) -> Result<()> {
         let my_account = &mut ctx.accounts.my_account;
-        my_account.data -= 1;
+        let new_data: i64 = (my_account.data - data.unwrap_or(1)).try_into().unwrap();
+        if new_data < 0 {
+            return Err(ProgramError::InvalidArgument.into());
+        }
+        my_account.data = new_data.try_into().unwrap();
         Ok(())
     }
 
