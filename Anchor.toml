@@ -4,14 +4,14 @@
 seeds = false
 skip-lint = false
 
-[programs.localnet]
+[programs.devnet]
 hello_world_anchor = "6VA2S3f2DpcdbvwVBJ2cK8xJrJRfBASRkkKNj531kEB5"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "/Users/jereme/.config/solana/id.json"
 
 [scripts]
